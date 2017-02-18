@@ -111,6 +111,7 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
         
         layout.scrollDirection = .horizontal
         let collectionViewController = ImageCollectionViewController(collectionViewLayout: layout)
+        searchController.dismiss(animated: true, completion: nil)
         navigationController?.pushViewController(collectionViewController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
