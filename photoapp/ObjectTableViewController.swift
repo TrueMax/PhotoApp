@@ -122,7 +122,7 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.reloadData()
     }
     
-    func searchTitle(searchText: String, scope: String = "All") {
+    func searchTitle(searchText: String) {
         searchResultData = initialData.filter { title in
         return title.lowercased().contains(searchText.lowercased())
         }
