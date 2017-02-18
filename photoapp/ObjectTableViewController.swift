@@ -22,6 +22,8 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
     var tableView: UITableView!
     var searchResultData: [String]?
     var initialData = ["ONE", "TWO", "THREE", "FOUR", "FIVE"]
+    
+    var refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,8 +55,9 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
         navigationController?.navigationBar.isHidden = false
         
         tableView.register(ObjectTableViewCell.self, forCellReuseIdentifier: "titleCell")
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        tableView.addSubview(refreshControl)
+        refreshControl.addTarget(self, action: #selector(self.refreshTableview(_:)), for: .valueChanged)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -120,6 +123,7 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
     
     func refreshTableview(_ sender: UIBarButtonItem) {
         tableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     func searchTitle(searchText: String) {
