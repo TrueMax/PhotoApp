@@ -15,9 +15,14 @@ class ImageCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        let rect = CGRect(x: 10, y: 10, width: contentView.bounds.width - 20, height: contentView.bounds.height - 10)
+        let rect = CGRect(x: contentView.frame.minX + 22, y: contentView.frame.minY + 33, width: contentView.frame.width - 44, height: contentView.frame.height - 66)
         imageView = UIImageView(frame: rect)
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 16
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.layer.borderWidth = 2
+        imageView.clipsToBounds = true
+        contentView.backgroundColor = UIColor.clear
         
         contentView.addSubview(imageView)
     }

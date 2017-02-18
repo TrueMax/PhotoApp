@@ -18,13 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let interactor = Interactor()
         interactor.connectToAPI()
-        
         print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!)
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let tableViewController = ObjectTableViewController()
-        let navigationController = UINavigationController(rootViewController: tableViewController)
+        let firstViewController = ObjectTableViewController()
+        let navigationController = UINavigationController(rootViewController: firstViewController)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         
