@@ -16,10 +16,6 @@
 		942D165A1E58342C0001421D /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942D16591E58342B0001421D /* ImageCollectionViewCell.swift */; };
 		9480D60D1E58508B00EA095A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9480D60B1E58508B00EA095A /* Main.storyboard */; };
 		9480D6111E58511E00EA095A /* IMAG2665.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9480D6101E58511E00EA095A /* IMAG2665.jpg */; };
-		9480D6161E58514300EA095A /* IMAG2671.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9480D6121E58514300EA095A /* IMAG2671.jpg */; };
-		9480D6171E58514300EA095A /* IMAG2684.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9480D6131E58514300EA095A /* IMAG2684.jpg */; };
-		9480D6181E58514300EA095A /* IMAG2688.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9480D6141E58514300EA095A /* IMAG2688.jpg */; };
-		9480D6191E58514300EA095A /* IMAG2689.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9480D6151E58514300EA095A /* IMAG2689.jpg */; };
 		9480D61B1E5896A000EA095A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9480D61A1E5896A000EA095A /* LaunchScreen.storyboard */; };
 		9480D61D1E58C75900EA095A /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9480D61C1E58C75900EA095A /* Object.swift */; };
 		BDEA34F081ECFAF8D61E79F6 /* Pods_photoapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE2F652361E3EF7D578B5419 /* Pods_photoapp.framework */; };
@@ -39,10 +35,6 @@
 		942D16591E58342B0001421D /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9480D60C1E58508B00EA095A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9480D6101E58511E00EA095A /* IMAG2665.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMAG2665.jpg; sourceTree = "<group>"; };
-		9480D6121E58514300EA095A /* IMAG2671.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMAG2671.jpg; sourceTree = "<group>"; };
-		9480D6131E58514300EA095A /* IMAG2684.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMAG2684.jpg; sourceTree = "<group>"; };
-		9480D6141E58514300EA095A /* IMAG2688.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMAG2688.jpg; sourceTree = "<group>"; };
-		9480D6151E58514300EA095A /* IMAG2689.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMAG2689.jpg; sourceTree = "<group>"; };
 		9480D61A1E5896A000EA095A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9480D61C1E58C75900EA095A /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 		CE2F652361E3EF7D578B5419 /* Pods_photoapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_photoapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,10 +93,6 @@
 				942D16571E582A480001421D /* ObjectTableViewCell.swift */,
 				942D16591E58342B0001421D /* ImageCollectionViewCell.swift */,
 				9480D6101E58511E00EA095A /* IMAG2665.jpg */,
-				9480D6121E58514300EA095A /* IMAG2671.jpg */,
-				9480D6131E58514300EA095A /* IMAG2684.jpg */,
-				9480D6141E58514300EA095A /* IMAG2688.jpg */,
-				9480D6151E58514300EA095A /* IMAG2689.jpg */,
 				9480D61C1E58C75900EA095A /* Object.swift */,
 			);
 			path = photoapp;
@@ -181,12 +169,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9480D6171E58514300EA095A /* IMAG2684.jpg in Resources */,
 				9480D61B1E5896A000EA095A /* LaunchScreen.storyboard in Resources */,
-				9480D6181E58514300EA095A /* IMAG2688.jpg in Resources */,
-				9480D6191E58514300EA095A /* IMAG2689.jpg in Resources */,
 				9480D6111E58511E00EA095A /* IMAG2665.jpg in Resources */,
-				9480D6161E58514300EA095A /* IMAG2671.jpg in Resources */,
 				9480D60D1E58508B00EA095A /* Main.storyboard in Resources */,
 				942D16431E577BEF0001421D /* Assets.xcassets in Resources */,
 			);

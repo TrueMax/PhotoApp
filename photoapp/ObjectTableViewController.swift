@@ -14,7 +14,7 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
     var searchController = UISearchController(searchResultsController: nil)
     var searchHeaderView: UIView!
     var tableView: UITableView!
-    var refreshControl = UIRefreshControl()
+    let refreshControl = UIRefreshControl()
     
     var searchResultData: [String]?
     var initialTitles = ["ONE", "TWO", "THREE", "FOUR", "FIVE"] {
@@ -22,7 +22,7 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
             tableView.reloadData()
         }
     }
-    var imageURLs: [URL]?
+    var dataSource: [Object]?
     
     var navigationTitle: String = "СПИСОК" {
         didSet {
@@ -37,13 +37,15 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
         self.view.backgroundColor = UIColor.white
         
         searchHeaderView = UIView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: self.view.frame.width, height: 44))
-        tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: self.view.frame.width, height: self.view.frame.height))
+        tableView = UITableView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: self.view.frame.width, height: self.view.frame.height - ((navigationController?.navigationBar.frame.size.height)!+22)))
         self.view.addSubview(searchHeaderView)
         self.view.addSubview(tableView)
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        tableView.separatorColor = UIColor.cyan
         self.view.sendSubview(toBack: tableView)
         tableView.register(ObjectTableViewCell.self, forCellReuseIdentifier: "titleCell")
         
@@ -52,10 +54,9 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
         
         configureSearchController()
         
-        let data = Interactor().retrieveTitles()
-        if data.count > 0 {
+        dataSource = Interactor().retrieveTitles()
+        if let data = dataSource {
             initialTitles = data.map({$0.title})
-            print("OBJECTS IN DB COUNT: \(data.count)")
         }
     }
     
@@ -79,6 +80,14 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.showsCancelButton = false
         
+            }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        navigationController?.topViewController?.title = navigationTitle
+        navigationController?.topViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .refresh, target: self, action: #selector(self.refreshTableview(_:)))
+        
         UIView.animate(withDuration: 0.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
             
             self.tableView.transform = CGAffineTransform(translationX: self.view.frame.width, y: 0)
@@ -98,13 +107,7 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
                 }
             })
         })
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        navigationController?.topViewController?.title = navigationTitle
-        navigationController?.topViewController?.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .refresh, target: self, action: #selector(self.refreshTableview(_:)))
+
         
     }
     
@@ -152,6 +155,11 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
         
         layout.scrollDirection = .horizontal
         let collectionViewController = ImageCollectionViewController(collectionViewLayout: layout)
+        if let data = dataSource {
+            collectionViewController.dataSource = data
+            collectionViewController.selectedIndex = indexPath.row
+        }
+        
         
         navigationController?.pushViewController(collectionViewController, animated: true)
         searchController.dismiss(animated: false, completion: nil)

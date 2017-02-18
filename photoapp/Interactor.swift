@@ -85,8 +85,6 @@ struct Interactor {
                 try database.run(objects.insert(or: .replace,
                                                 id <- Int64(_id), title <- _title, imageURL <- _imageURL
                 ))
-                print("OBJECTS INSERTED")
-                
             } catch {
                 print(error.localizedDescription)
             }
@@ -100,7 +98,7 @@ struct Interactor {
         
         do {
             let database = try Connection("\(path)/database.sqlite3")
-            print("SQLITE PATH - RETRIEVAL: \(path)")
+            print("SQLITE PATH - CONVENIENCE LINK: \(path)")
             let objects = Table("objects")
             let number = Expression<Int64>("number")
             let id = Expression<Int64>("id")

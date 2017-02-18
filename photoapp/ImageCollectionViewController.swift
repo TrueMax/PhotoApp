@@ -6,8 +6,6 @@
 //  Copyright © 2017 Maxim Abakumov. All rights reserved.
 //
 
-// отображение title + image, horizontal scroll 
-
 import UIKit
 import SDWebImage
 
@@ -15,25 +13,36 @@ private let reuseIdentifier = "Cell"
 
 class ImageCollectionViewController: UICollectionViewController {
     
-    let dataSource = ["IMAG2665.jpg", "IMAG2671.jpg", "IMAG2684.jpg", "IMAG2688.jpg", "IMAG2689.jpg"]
+
+    var dataSource: [Object]?
+    var selectedIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         collectionView!.backgroundColor = UIColor.white
         navigationController?.navigationBar.isHidden = false
        
-        self.collectionView!.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView!.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView!.isPagingEnabled = true
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let _index = selectedIndex {
+            let indexpath = IndexPath(row: 0, section: _index)
+            collectionView!.scrollToItem(at: indexpath, at: .centeredHorizontally, animated: true)
+        }
     }
 
 
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        
-        return 5 // кол-во объектов из таблицы 
+        guard let _dataSource = dataSource else { return 5 }
+        return _dataSource.count
     }
 
 
@@ -46,8 +55,14 @@ class ImageCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ImageCollectionViewCell
     
         
-        cell.backgroundColor = UIColor.blue
-        cell.imageView.image = UIImage(named: dataSource[indexPath.section])
+        cell.backgroundColor = UIColor.cyan
+        guard let _dataSource = dataSource else {
+            cell.imageView.image = UIImage(named: "IMAG2665.jpg")
+            return cell
+        }
+        let url = URL(string: _dataSource[indexPath.section].urlString)
+        cell.imageView.sd_setImage(with: url!, placeholderImage: UIImage(named: "IMAG2665.jpg"))
+        cell.nameLabel.text = _dataSource[indexPath.section].title
         
         return cell
     }
