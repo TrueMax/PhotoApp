@@ -12,10 +12,10 @@ import SQLite
 struct Interactor {
     
     let url = URL(string: "http://private-db05-jsontest111.apiary-mock.com/androids")
-    let database = ObjectWithImage().configureDatabase()
+    let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
     
     func connectToAPI() {
-    
+        
         let session = URLSession.shared
         
         guard let _url = url else { return }
@@ -26,7 +26,7 @@ struct Interactor {
             
             guard error == nil else {
                 print("\(error.debugDescription)")
-                  return
+                return
             }
             
             guard let _response = response else { return }
@@ -50,31 +50,77 @@ struct Interactor {
     
     private func parseArray(array: Array<Any>) {
         
+        let objects = Table("objects")
+        let number = Expression<Int64>("number")
+        let title = Expression<String>("title")
+        let imageURL = Expression<String>("imageURL")
+        let id = Expression<Int64>("id")
+        
+        do {
+            let database = try Connection("\(path)/database.sqlite3")
+            
+            try database.run(objects.create(ifNotExists: true) { table in
+                table.column(number, primaryKey: .autoincrement, check: number <= 30)
+                table.column(id)
+                table.column(title)
+                table.column(imageURL)
+            })
+        } catch {
+            print("ERROR CREATING TABLE")
+        }
+        
         for element in array {
             let _element = element as? Dictionary<String, Any>
             guard let _id = _element?["id"] as? Int else { return }
-                print(_id)
+            print(_id)
             
             guard let _title = _element?["title"] as? String else { return }
-                print(_title)
+            print(_title)
             
             guard let _imageURL = _element?["img"] as? String else { return }
-                print(_imageURL)
+            print(_imageURL)
             
             do {
-                let objects = Table("objects")
-                let title = Expression<String>("title")
-                let imageURL = Expression<String>("imageURL")
-                let id = Expression<Int64>("id")
-
-                try database!.run(objects.insert(
-                    id <- Int64(_id), title <- _title, imageURL <- _imageURL
+                let database = try Connection("\(path)/database.sqlite3")
+                try database.run(objects.insert(or: .replace,
+                                                id <- Int64(_id), title <- _title, imageURL <- _imageURL
                 ))
+                print("OBJECTS INSERTED")
                 
             } catch {
                 print(error.localizedDescription)
             }
-
+            
         }
     }
+    
+    func retrieveTitles() -> [Object] {
+        
+        var titles = [Object]()
+        
+        do {
+            let database = try Connection("\(path)/database.sqlite3")
+            print("SQLITE PATH - RETRIEVAL: \(path)")
+            let objects = Table("objects")
+            let number = Expression<Int64>("number")
+            let id = Expression<Int64>("id")
+            let title = Expression<String>("title")
+            let imageURL = Expression<String>("imageURL")
+            
+            for object in try database.prepare(objects){
+                let _obj = Object(number: object[number], id: object[id], title: object[title], urlString: object[imageURL])
+                titles.append(_obj)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        guard titles.count > 0 else {
+            print("EMPTY DATABASE")
+            return []
+        }
+        
+        return titles
+    }
+    
 }
