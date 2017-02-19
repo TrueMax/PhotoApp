@@ -15,6 +15,8 @@ class ImageCollectionViewController: UICollectionViewController {
     
 
     var dataSource: [Object]?
+    var titles: [String]?
+    var selectedTitle: String?
     var selectedIndex: Int?
     
     override func viewDidLoad() {
@@ -34,9 +36,16 @@ class ImageCollectionViewController: UICollectionViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let _index = selectedIndex {
-            let indexpath = IndexPath(row: 0, section: _index)
-            collectionView!.scrollToItem(at: indexpath, at: .centeredHorizontally, animated: true)
+//        if let _index = selectedIndex {
+//            let indexpath = IndexPath(row: 0, section: _index)
+//            collectionView!.scrollToItem(at: indexpath, at: .centeredHorizontally, animated: true)
+//        }
+        
+        if let _titles = titles, let _title = selectedTitle {
+            if let section = _titles.index(of: _title) {
+                let indexPath = IndexPath(row: 0, section: section)
+            collectionView!.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            }
         }
     }
     

@@ -160,7 +160,13 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
         let collectionViewController = ImageCollectionViewController(collectionViewLayout: layout)
         if let data = dataSource {
             collectionViewController.dataSource = data
-            collectionViewController.selectedIndex = indexPath.row
+            collectionViewController.titles = initialTitles
+            
+            if let _selectedTitle = tableView.cellForRow(at: indexPath)?.textLabel?.text {
+            collectionViewController.selectedTitle = _selectedTitle
+           // collectionViewController.selectedIndex = indexPath.row
+            
+            }
         }
         
         
