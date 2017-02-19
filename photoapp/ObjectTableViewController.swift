@@ -34,6 +34,9 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        restorationIdentifier = restorationKeys.titleTableViewController.rawValue
+        restorationClass = ObjectTableViewController.self
+        
         self.view.backgroundColor = UIColor.white
         
         searchHeaderView = UIView(frame: CGRect(x: 0, y: (navigationController?.navigationBar.frame.maxY)!, width: self.view.frame.width, height: 44))
@@ -173,7 +176,10 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func refreshTableview(_ sender: UIBarButtonItem) {
+        
+        refreshControl.beginRefreshing()
         searchResultData = nil
+        searchController.dismiss(animated: true, completion: nil)
         tableView.reloadData()
         refreshControl.endRefreshing()
     }
@@ -188,20 +194,37 @@ class ObjectTableViewController: UIViewController, UITableViewDataSource, UITabl
     // MARK: - Restoration
     
     override func encodeRestorableState(with coder: NSCoder) {
-        super.encodeRestorableState(with: coder)
         
-        // сохранить состояние properties
+        if let searchData = searchResultData {
+            coder.encode(searchData, forKey: restorationKeys.searchResultsData.rawValue)
+        }
+        
+        super.encodeRestorableState(with: coder)
     }
     
     override func decodeRestorableState(with coder: NSCoder) {
+        
+        if let data = coder.decodeObject(forKey: restorationKeys.searchResultsData.rawValue) as! [String]? {
+            searchResultData = data
+        }
+        
         super.decodeRestorableState(with: coder)
-        // восстановить состояние properties
     }
     
+    
+    // MARK - Alert
+
     func alertAccessError() {
         let controller = UIAlertController(title: "ERROR", message: "Error connecting to SQLite database", preferredStyle: .alert)
         controller.addAction(UIAlertAction(title: "Try again later", style: .cancel, handler: nil))
         present(controller, animated: true, completion: nil)
     }
     
+}
+
+extension ObjectTableViewController: UIViewControllerRestoration {
+    @available(iOS 2.0, *)
+    public static func viewController(withRestorationIdentifierPath identifierComponents: [Any], coder: NSCoder) -> UIViewController? {
+        return ObjectTableViewController()
+    }
 }

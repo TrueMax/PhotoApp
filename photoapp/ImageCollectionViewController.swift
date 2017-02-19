@@ -20,6 +20,9 @@ class ImageCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        restorationIdentifier = restorationKeys.imageCollectionViewController.rawValue
+        restorationClass = ImageCollectionViewController.self
+        
         collectionView!.backgroundColor = UIColor.white
         navigationController?.navigationBar.isHidden = false
        
@@ -35,6 +38,12 @@ class ImageCollectionViewController: UICollectionViewController {
             let indexpath = IndexPath(row: 0, section: _index)
             collectionView!.scrollToItem(at: indexpath, at: .centeredHorizontally, animated: true)
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.restorationIdentifier = restorationKeys.imageCollectionViewController.rawValue
     }
 
 
@@ -67,5 +76,31 @@ class ImageCollectionViewController: UICollectionViewController {
         return cell
     }
 
+    // MARK: Restoration methods
     
+    override func encodeRestorableState(with coder: NSCoder) {
+        if let index = selectedIndex {
+            coder.encode(index, forKey: restorationKeys.imageSelectedIndex.rawValue)
+        }
+        
+        super.encodeRestorableState(with: coder)
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        
+        if let index = coder.decodeInteger(forKey: restorationKeys.imageSelectedIndex.rawValue) as Int? {
+            selectedIndex = index
+        }
+        
+        super.decodeRestorableState(with: coder)
+    }
+        
 }
+
+extension ImageCollectionViewController: UIViewControllerRestoration {
+    @available(iOS 2.0, *)
+    public static func viewController(withRestorationIdentifierPath identifierComponents: [Any], coder: NSCoder) -> UIViewController? {
+        return ImageCollectionViewController()
+    }
+}
+

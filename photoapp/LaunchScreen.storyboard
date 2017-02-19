@@ -21,16 +21,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IMAG2665.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="ebm-d3-je5">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IMAG2570" translatesAutoresizingMaskIntoConstraints="NO" id="dt8-hv-zrx">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ebm-d3-je5" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="Sbk-po-rjY"/>
-                            <constraint firstAttribute="trailing" secondItem="ebm-d3-je5" secondAttribute="trailing" id="nTS-3U-e1X"/>
-                            <constraint firstItem="ebm-d3-je5" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="x2P-rh-l8k"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="ebm-d3-je5" secondAttribute="bottom" id="xvN-Bv-e3m"/>
+                            <constraint firstItem="dt8-hv-zrx" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="Jxm-aV-uEU"/>
+                            <constraint firstAttribute="trailing" secondItem="dt8-hv-zrx" secondAttribute="trailing" id="Tc8-lg-qha"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="dt8-hv-zrx" secondAttribute="bottom" id="VG6-D9-yc5"/>
+                            <constraint firstItem="dt8-hv-zrx" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="gGL-1N-mN4"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -40,6 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="IMAG2665.jpg" width="1952" height="3264"/>
+        <image name="IMAG2570" width="1952" height="3264"/>
     </resources>
 </document>
